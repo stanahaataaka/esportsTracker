@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+def index(request):
+    #IOU needed homepage info
+    return render(request, "index.html")
