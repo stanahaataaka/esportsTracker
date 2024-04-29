@@ -57,12 +57,25 @@ class Game(models.Model):
 #Team Model:
 class Team(models.Model):
     teamName = models.CharField(max_length=25, unique=True, primary_key=True)
-    #playerCount = models.IntegerField()
+    playerCount = models.IntegerField()
     game = models.ForeignKey('Game', on_delete=models.RESTRICT, null=True)
-    #players = models.ManyToManyField(Player, max_length=playerCount)
+    players = models.ManyToManyField("Player", max_length=playerCount)
 
     #ToString:
     def __str__(self):
         return self.teamName
     
 
+# Player Model:
+class Players(models.Model):
+    playerID = models.IntegerField(unique=True,primary_key=True,auto_created=True)
+    players = models.ManyToManyField("Player", max_length=10)
+    age = models.IntegerField("Age")
+    username = models.ManyToManyField("Username", max_length=10)
+    kills = models.IntegerField("Kills")
+    deaths = models.IntegerField("Deaths")
+    assists = models.IntegerField("Assists")
+    KDA = models.ManyToManyField("KDA", max_length=11)
+    datePlayed = models.DateField(("Date Played"), auto_now=False, auto_now_add=False)
+    
+    
