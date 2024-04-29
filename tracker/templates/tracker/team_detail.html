@@ -1,0 +1,56 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+  <h1 style="margin-left: 35;font-size: 50">{{team.teamName}}</h1>
+    <h2 style="margin-left: 40;font-size: 25">Current Game: {{team.game.gameName}}</h2>
+      <h3 style="font-size: 20; text-align: center;">Current Season Score:</h3>
+      <div style="text-align: center;">
+        <div style="display: inline-block;text-align: center;font-size: 20;margin-right:8px;">Wins:
+          <br>
+          <p style="display: inline-block;border: 1px solid black;text-align: center;padding: 1rem 1rem;">1</p>
+          </br>
+        </div>
+        <div style="display: inline-block;text-align: center;">
+          <p style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 50;">-</p>
+        </div>
+        <div style="display: inline-block;text-align: center;font-size: 20;">Losses:
+          <br>
+          <p style="display: inline-block;border: 1px solid black;text-align: center;padding: 1rem 1rem;">1</p>
+          </br>
+        </div>
+      </div>
+        <div class="card-player-list">
+          <strong style="margin-left: 40;font-size: 25">Player List: </strong> 
+          <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
+            <div class="card-body">
+                {% if player_list %}
+                  <ul>
+                    {% for player in player_list %}
+                      <p href="{{ team.player.name }}">{{team.player.name}}</p>
+                      <hr>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <p>There are no players for this school because mitchell needs to finish programing this part!.</p>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="card-match-list">
+          <strong style="margin-left: 40;font-size: 25">Match History: </strong> 
+          <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
+            <div class="card-body">
+                {% if player_list %}
+                  <ul>
+                    {% for player in player_list %}
+                      <p href="{{ team.player.name }}">{{team.player.name}}</p>
+                      <hr>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <p>There are no players for this school because mitchell needs to finish programing this part!.</p>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+{% endblock %}
