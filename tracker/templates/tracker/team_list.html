@@ -26,8 +26,9 @@
             <hr>
             <p class="card-player-list">
               <strong>Player List: </strong> 
+              <hr>
                 {% for player in team.player_set.all %}
-                  <p>{{ player.username }}</p>
+                  <p><a href="{{player.username}}">{{player.username}}</a></p>
                   {%empty%}
                   <p>There are no players for this team!</p>
                 {% endfor %}

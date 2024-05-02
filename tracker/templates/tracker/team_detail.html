@@ -24,7 +24,7 @@
           <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
             <div class="card-body">
               {% for player in team.player_set.all %}
-              <p>{{ player.username }}</p>
+              <p><a href="{{player.username}}">{{player.username}}</a></p>
               {%empty%}
               <p>There are no players for this team!</p>
             {% endfor %}
