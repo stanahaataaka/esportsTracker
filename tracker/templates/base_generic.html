@@ -1,38 +1,72 @@
 {% load static %}
 <html lang="en">
-    <head>
-        {% block title %}
-            <title>eSports Tracker</title>
-        {%endblock%}
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <style>
-          pre {font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;}
-        </style>
-    </head>
-    <body>
-        {% block navbar %}
-        <nav class="navbar navbar-dark bg-dark">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-              <img src="{% static 'images/logo.png' %}" alt="Logo" style="width:43.66px;height:58.44px;">
-                <span><a class="navbar-brand" href="{% url 'index'%}"> eSports Tracker</a></span>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                  <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="{% url 'index'%}">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link active" href="{% url 'teams'%}">Teams <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link active" href="{% url 'players'%}">Players <span class="sr-only">(current)</span></a>
-                  </div>
-                </div>
-              </nav>
-        </nav>
-        {% endblock %}
-        {% block content %}
-        
-        {% endblock %}
-    </body>
+  <head>
+    {% block title %}
+    <title>eSports Tracker</title>
+    {%endblock%}
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <style>
+      pre {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    {% block navbar %}
+    <nav class="navbar navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <img
+          src="{% static 'images/logo.png' %}"
+          alt="Logo"
+          style="width: 43.66px; height: 58.44px"
+        />
+        <span
+          ><a class="navbar-brand" href="{% url 'index'%}">
+            eSports Tracker</a
+          ></span
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="{% url 'index'%}"
+              >Home <span class="sr-only">(current)</span></a
+            >
+            <a class="nav-item nav-link active" href="{% url 'teams'%}"
+              >Teams <span class="sr-only">(current)</span></a
+            >
+            <a class="nav-item nav-link active" href="{% url 'players'%}"
+              >Players <span class="sr-only">(current)</span></a
+            >
+            <a class="nav-item nav-link active" href="{% url 'matches'%}"
+              >Matches <span class="sr-only">(current)</span></a
+            >
+          </div>
+        </div>
+      </nav>
+    </nav>
+    {% endblock %} {% block content %} {% endblock %}
+  </body>
 </html>

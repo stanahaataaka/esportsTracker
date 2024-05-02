@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+  <h1 style="margin-left: 35;">Match List</h1>
+  {% if match_list %}
+    <ul>
+      {% for match in match_list %}
+        <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
+          <div class="card-body">
+            <h5 style= "font-size: 35" class = "card-team-name">
+              {% if match.gameName == 'Rocket League' %}
+              <img src="{% static 'images/rocketleague.png' %}" alt="GameLogo" style="width:125px;height:125px; float:left;width:50px;height:50px;"></a>
+              {% elif match.gameName == 'Minecraft' %}
+              <img src="{% static 'images/minecraft.png' %}" alt="GameLogo" style="width:50px;height:54.9375px; float:left;width:50px;height:50px;"></a>
+              {% elif match.gameName == 'Valorant' %}
+              <img src="{% static 'images/valorant.png' %}" alt="GameLogo" style="width:50px;height:49.85px; float:left;width:50px;height:50px;"></a>
+              {% else %}
+              <img src="{% static 'images/logo.png' %}" alt="GameLogo" style="width:43.66px;height:58.44px; float:left;width:50px;height:50px;"></a>
+              {% endif %}
+              <a href="{{ match.team.teamName }}">{{match.team.teamName}}</a>
+              <span style="float:right"><a href="{{ match.matchID }}">Score: {{match.homeScore}} - {{match.opponentScore}}</a></span>
+            </h5>
+            <p>Game: {{match.gameName}} <span style="float:right">{{match.date}}</span></p>
+          </div>
+        </div>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p style="margin-left: 400">There are no matches for this school!</p>
+  {% endif %}
+{% endblock %}
