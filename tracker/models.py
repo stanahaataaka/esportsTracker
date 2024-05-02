@@ -58,8 +58,9 @@ class Game(models.Model):
 class Player(models.Model):
     playerID = models.IntegerField(unique=True,primary_key=True,auto_created=True)
     team = models.ForeignKey('Team', on_delete=models.RESTRICT, null=True)
-    age = models.IntegerField("Age")
+    name = models.CharField("Username", max_length=20)
     username = models.CharField("Username", max_length=10)
+    age = models.IntegerField("Age")
     kills = models.IntegerField("Kills")
     deaths = models.IntegerField("Deaths")
     assists = models.IntegerField("Assists")
