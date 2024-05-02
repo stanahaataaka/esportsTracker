@@ -12,3 +12,6 @@ class TeamListView(generic.ListView):
 
 class TeamDetailView(generic.DetailView):
     model = Team
+
+def admin_tracker(request):
+    return render(request, "admin_tracker.html")
