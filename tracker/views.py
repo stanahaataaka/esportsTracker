@@ -1,20 +1,21 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import Team, Game, Player
-<<<<<<< HEAD
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.urls import reverse
-=======
 from django.contrib.auth.decorators import login_required
->>>>>>> 7b92129f49bb8b00167465e96cc9e1c00ef79506
 
 def index(request):
     #IOU needed homepage info
     return render(request, "index.html")
+
+@login_required
+def admin_tracker(request):
+    return render(request, "admin_tracker.html")
 
 class TeamListView(generic.ListView):
     model = Team
@@ -23,22 +24,16 @@ class TeamListView(generic.ListView):
 class TeamDetailView(generic.DetailView):
     model = Team
 
-<<<<<<< HEAD
-=======
-@login_required
->>>>>>> 7b92129f49bb8b00167465e96cc9e1c00ef79506
-def admin_tracker(request):
-    return render(request, "admin_tracker.html")
-
 class PlayerListView(generic.ListView):
     model = Player
     paginate_by = 10
-<<<<<<< HEAD
+
+class PlayerDetailView(generic.DetailView):
+    model = Player
 
 class TeamCreate(PermissionRequiredMixin, CreateView):
     model = Team
-    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
-    initial = {'date_of_death': '11/11/2023'}
+    fields = ['teamName', 'game']
     permission_required = 'tracker.add_team'
 
 class TeamUpdate(PermissionRequiredMixin, UpdateView):
@@ -59,5 +54,27 @@ class TeamDelete(PermissionRequiredMixin, DeleteView):
             return HttpResponseRedirect(
                 reverse("team-delete", kwargs={"pk": self.object.pk})
             )
-=======
->>>>>>> 7b92129f49bb8b00167465e96cc9e1c00ef79506
+
+class PlayerCreate(PermissionRequiredMixin, CreateView):
+    model = Player
+    fields = ['username', 'name', 'team', 'age', 'kills', 'deaths', 'assists', 'KDA', 'datePlayed']
+    permission_required = 'tracker.add_player'
+
+class PlayerUpdate(PermissionRequiredMixin, UpdateView):
+    model = Player
+    fields = '__all__'
+    permission_required = 'tracker.change_player'
+
+class PlayerDelete(PermissionRequiredMixin, DeleteView):
+    model = Player
+    success_url = reverse_lazy('players')
+    permission_required = 'tracker.delete_player'
+
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("player-delete", kwargs={"pk": self.object.pk})
+            )
