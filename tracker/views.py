@@ -1,7 +1,7 @@
 
 from django.shortcuts import render
 from django.views import generic
-from .models import Team, Game, Player, Match
+from .models import Team, Game, Player, GamePlayerAssociate, Match
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
@@ -117,3 +117,6 @@ class GameDelete(PermissionRequiredMixin, DeleteView):
             return HttpResponseRedirect(
                 reverse("game-delete", kwargs={"pk": self.object.pk})
             )
+
+class PlayerDetailView(generic.DetailView):
+    model = Player
