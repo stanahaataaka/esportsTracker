@@ -105,7 +105,8 @@ class Match(models.Model):
     date = models.DateField()
     gameName = models.CharField(choices=gameNameChoices, default=minecraft, max_length=25)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
-    homeScore = models.IntegerField()
-    opponentScore = models.IntegerField()
+    homeScore = models.IntegerField(null=True)
+    opponentScore = models.IntegerField(null=True)
     opponentID = models.ForeignKey(Opponent, on_delete=models.SET_NULL, null=True)
     status = models.CharField(choices=matchStautsChoices, default=upcomming, max_length=10)
+
