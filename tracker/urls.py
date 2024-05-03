@@ -6,9 +6,12 @@ urlpatterns = [
     path('', views.index, name='index'),
     path("admin_tracker/", views.admin_tracker, name="admin_tracker"),
     path('teams/', views.TeamListView.as_view(), name='teams'),
-    path('teams/<str:pk>', views.TeamDetailView.as_view(), name='team-detail'),
+    path('teams/<str:pk>', views.TeamDetailView.as_view(), name='teams'),
+    path("admin_tracker/", views.admin_tracker, name="admin_tracker"),
     path('players/', views.PlayerListView.as_view(), name='players'),
     path('players/<str:pk>', views.PlayerDetailView.as_view(), name='player-detail'),
+    path('matches/', views.MatchListView.as_view(), name='matches'),
+    path('matches/<str:pk>', views.MatchDetailView.as_view(), name='match-detail'),
 ]
 
 urlpatterns += [

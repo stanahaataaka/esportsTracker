@@ -1,6 +1,7 @@
+
 from django.shortcuts import render
 from django.views import generic
-from .models import Team, Game, Player
+from .models import Team, Game, Player, Match
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
@@ -26,6 +27,13 @@ class TeamDetailView(generic.DetailView):
 
 class PlayerListView(generic.ListView):
     model = Player
+    paginate_by = 10
+
+class MatchDetailView(generic.DetailView):
+    model = Match
+
+class MatchListView(generic.ListView):
+    model = Match
     paginate_by = 10
 
 class PlayerDetailView(generic.DetailView):
