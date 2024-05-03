@@ -1,43 +1,50 @@
 {% extends "base_generic.html" %}
 {% load static %}
 {% block content %}
-  <h1 style="margin-left: 35;">Teams List:</h1>
+<br>
+  <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
+    <div class="card-body">
+      <h1 style="text-align: center;">Teams List</h1>
+    </div>
+  </div>
   {% if team_list %}
-    <ul>
-      {% for team in team_list %}
-        <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
-          <div class="card-body">
-            <h5 style= "font-size: 35" class = "card-team-name"><a href="{{ team.get_absolute_url }}">{{team.teamName}}</a>
-              {% if team.game.gameName == 'Rocket League' %}
-              <img src="{% static 'images/rocketleague.png' %}" alt="GameLogo" style="width:125px;height:125px; float:right;width:50px;height:50px;"></a>
-              {% elif team.game.gameName == 'Minecraft' %}
-              <img src="{% static 'images/minecraft.png' %}" alt="GameLogo" style="width:50px;height:54.9375px; float:right;width:50px;height:50px;"></a>
-              {% elif team.game.gameName == 'Valorant' %}
-              <img src="{% static 'images/valorant.png' %}" alt="GameLogo" style="width:50px;height:49.85px; float:right;width:50px;height:50px;"></a>
-              {% else %}
-              <img src="{% static 'images/logo.png' %}" alt="GameLogo" style="width:43.66px;height:58.44px; float:right;width:50px;height:65px;"></a>
-              {% endif %}
-            </h5>
-            <p>Game: {{team.game.gameName}}</p>
+    {% for team in team_list %}
+      <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
+        <div class="card-body">
+          <h5 style= "font-size: 35" class = "card-team-name"><a href="{{ team.get_absolute_url }}">{{team.teamName}}</a>
+            {% if team.game.gameName == 'Rocket League' %}
+            <img src="{% static 'images/rocketleague.png' %}" alt="GameLogo" style="width:125px;height:125px; float:right;width:50px;height:50px;"></a>
+            {% elif team.game.gameName == 'Minecraft' %}
+            <img src="{% static 'images/minecraft.png' %}" alt="GameLogo" style="width:50px;height:54.9375px; float:right;width:50px;height:50px;"></a>
+            {% elif team.game.gameName == 'Valorant' %}
+            <img src="{% static 'images/valorant.png' %}" alt="GameLogo" style="width:50px;height:49.85px; float:right;width:50px;height:50px;"></a>
+            {% else %}
+            <img src="{% static 'images/logo.png' %}" alt="GameLogo" style="width:43.66px;height:58.44px; float:right;width:50px;height:65px;"></a>
+            {% endif %}
+          </h5>
+          <p>Game: {{team.game.gameName}}</p>
+          <hr>
+          <p class="card-league-specifications">
+            <pre><strong>League Format: {{team.game.leagueFormat}}                       League Structure: {{team.game.leagueStructure}} </strong></pre> 
+          </p>
+          <hr>
+          <p class="card-player-list">
+            <strong>Player List: </strong> 
             <hr>
-            <p class="card-league-specifications">
-              <pre><strong>League Format: {{team.game.leagueFormat}}                       League Structure: {{team.game.leagueStructure}} </strong></pre> 
-            </p>
-            <hr>
-            <p class="card-player-list">
-              <strong>Player List: </strong> 
-              <hr>
-                {% for player in team.player_set.all %}
-                  <p><a href="{{player.get_absolute_url}}">{{player.username}}</a></p>
-                  {%empty%}
-                  <p>There are no players for this team!</p>
-                {% endfor %}
-            </p>
-          </div>
+              {% for player in team.player_set.all %}
+                <p><a href="{{player.get_absolute_url}}">{{player.username}}</a></p>
+                {%empty%}
+                <p>There are no players for this team!</p>
+              {% endfor %}
+          </p>
         </div>
-      {% endfor %}
-    </ul>
+      </div>
+    {% endfor %}
   {% else %}
-    <p style="margin-left: 400">There are no teams for this school!</p>
+    <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
+      <div class="card-body">
+        <p style="text-align: center;">There are no teams for this school!</p>
+      </div>
+    </div>
   {% endif %}
 {% endblock %}

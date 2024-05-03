@@ -1,18 +1,25 @@
 {% extends "base_generic.html" %}
 {% load static %}
 {% block content %}
-  <h1 style="margin-left: 35;">Players List:</h1>
+<br>
+  <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
+    <div class="card-body">
+      <h1 style="text-align: center;">Players List</h1>
+    </div>
+  </div>
   {% if player_list %}
-    <ul>
-      {% for player in player_list %}
-        <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
-          <div class="card-body">
-            <h5 style= "font-size: 35" class = "card-team-name"><a href="{{player.get_absolute_url}}">{{player.username}}</a></h5>
-          </div>
+    {% for player in player_list %}
+      <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
+        <div class="card-body">
+          <h1 style="text-align: center;" class = "card-team-name"><a href="{{player.get_absolute_url}}">{{player.username}}</a></h1>
         </div>
-      {% endfor %}
-    </ul>
+      </div>
+    {% endfor %}
   {% else %}
-    <p style="margin-left: 400">There are no players for this school!</p>
+    <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
+      <div class="card-body">
+        <p style="text-align: center;">There are no players for this school!</p>
+      </div>
+    </div>
   {% endif %}
 {% endblock %}

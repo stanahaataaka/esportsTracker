@@ -86,7 +86,7 @@ class Opponent(models.Model):
         return reverse('match-detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.id
+        return self.opponentName
 
 #Game Name:
 #Variables:
