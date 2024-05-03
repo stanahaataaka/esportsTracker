@@ -80,3 +80,15 @@ class Team(models.Model):
     def __str__(self):
         return self.teamName
     
+class GamePlayerAssociate(models.Model):
+    playerID = models.ForeignKey('Player',on_delete=models.RESTRICT)
+    gameID = models.ForeignKey('Game',on_delete=models.RESTRICT)
+    
+    def listOfGames(playerID):
+        tempList = []
+        for game in gameID:
+            if(game.playerID == playerID):
+                tempList.append(game)
+        
+        return tempList
+        

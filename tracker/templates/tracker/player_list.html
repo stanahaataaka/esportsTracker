@@ -7,12 +7,12 @@
       {% for player in player_list %}
         <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
           <div class="card-body">
-            <h5 style= "font-size: 35" class = "card-team-name"><a href="{{player.username}}">{{player.username}}</a></h5>
+            <h5 style= "font-size: 30" class = "card-team-name"><a href="{{player.playerID}}">{{player.username | upper}}</a></h5>
           </div>
         </div>
       {% endfor %}
     </ul>
   {% else %}
-    <p style="margin-left: 400">There are no players for this school!</p>
+    <p style="margin-left: 400">There is no player!</p>
   {% endif %}
 {% endblock %}

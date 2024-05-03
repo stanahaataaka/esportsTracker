@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from .models import Team, Game, Player
+from .models import Team, Game, Player, GamePlayerAssociate
 
 def index(request):
     #IOU needed homepage info
@@ -16,3 +16,6 @@ class TeamDetailView(generic.DetailView):
 class PlayerListView(generic.ListView):
     model = Player
     paginate_by = 10
+
+class PlayerDetailView(generic.DetailView):
+    model = Player
