@@ -75,3 +75,34 @@ class Team(models.Model):
     #ToString:
     def __str__(self):
         return self.teamName
+    
+#Match Models
+class Opponent(models.Model):
+    opponentID = models.AutoField(primary_key=True)
+    opponentName = models.CharField(max_length=40)
+    opponentAcronym = models.CharField(max_length=5)
+
+    def __str__(self):
+        return self.opponentName
+
+#Game Name:
+#Variables:
+live = "Live"
+final = "Final"
+upcomming = "Upcomming"
+#Choice Variable:
+matchStautsChoices = (
+    (live, "Live"),
+    (final, "Final"),
+    (upcomming, "Upcomming"),
+)
+class Match(models.Model):
+    matchID = models.AutoField(primary_key=True)
+    date = models.DateField()
+    gameName = models.CharField(choices=gameNameChoices, default=minecraft, max_length=25)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
+    homeScore = models.IntegerField(null=True)
+    opponentScore = models.IntegerField(null=True)
+    opponentID = models.ForeignKey(Opponent, on_delete=models.SET_NULL, null=True)
+    status = models.CharField(choices=matchStautsChoices, default=upcomming, max_length=10)
+
