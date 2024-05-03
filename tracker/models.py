@@ -109,9 +109,3 @@ class Match(models.Model):
     opponentScore = models.IntegerField()
     opponentID = models.ForeignKey(Opponent, on_delete=models.SET_NULL, null=True)
     status = models.CharField(choices=matchStautsChoices, default=upcomming, max_length=10)
-
-
-class MatchPlayers(models.Model):
-    matchID = models.ForeignKey(Match, on_delete=models.CASCADE)
-    playerID = models.ForeignKey(Player, on_delete=models.CASCADE)
-

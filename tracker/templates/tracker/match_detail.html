@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
   <h1 style="margin-left: 35;font-size: 50">Match</h1>
+    <h2 style="margin-left: 40;font-size: 25">{{match.team.teamName}} vs. {{match.opponentID.opponentName}}</h2>
     <h2 style="margin-left: 40;font-size: 25">Game: {{match.gameName}} | Date : {{match.date}} </h2>
     {% if match.status == "Live" %}
       <h2 style="margin-left: 40;font-size: 25">Live</h2>
@@ -26,17 +27,20 @@
           </br>
         </div>
       </div>
-        <div class="card-player-list">
-          <strong style="margin-left: 40;font-size: 25">Individual Stats: </strong> 
-          <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
-            <div class="card-body">
-              {% for player in match.player_set.all %}
-                <p><a href="{{player.username}}">{{player.username}}</a></p>
-              {%empty%}
-                <p>There are no players for this team!</p>
-              {% endfor %}
+      <div class="card-player-list">
+        <strong style="margin-left: 40;font-size: 25">Individual Stats: </strong> 
+          {% for player in match.team.player_set.all %}
+              <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
+                <div class="card-body">
+                    <p>
+                      <a href="{{player.username}}">{{player.username}}</a>
+                      <span>Kills: {{player.kills}} Deaths: {{player.deaths}}</span>
+                    </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          {%empty%}
+            <p>There are no players for this team! :|</p>
+          {% endfor %}
 {% endblock %}
 

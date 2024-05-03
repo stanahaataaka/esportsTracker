@@ -20,5 +20,6 @@ class PlayerListView(generic.ListView):
 class MatchListView(generic.ListView):
     model = Match
     paginate_by = 10
+
 class MatchDetailView(generic.DetailView):
     model = Match
