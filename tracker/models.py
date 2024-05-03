@@ -67,7 +67,7 @@ class Player(models.Model):
 #Team Model:
 class Team(models.Model):
     teamName = models.CharField(max_length=25, unique=True)
-    game = models.ForeignKey('Game', on_delete=models.RESTRICT, null=True)
+    game = models.ForeignKey('Game', on_delete=models.SET_NULL, null=True)
 
     def get_absolute_url(self):
         return reverse('team-detail', args=[str(self.id)])
@@ -78,12 +78,15 @@ class Team(models.Model):
     
 #Match Models
 class Opponent(models.Model):
-    opponentID = models.AutoField(primary_key=True)
+    #opponentID = models.AutoField(primary_key=True)
     opponentName = models.CharField(max_length=40)
     opponentAcronym = models.CharField(max_length=5)
 
+    def get_absolute_url(self):
+        return reverse('match-detail', args=[str(self.id)])
+
     def __str__(self):
-        return self.opponentName
+        return self.id
 
 #Game Name:
 #Variables:
@@ -97,12 +100,18 @@ matchStautsChoices = (
     (upcomming, "Upcomming"),
 )
 class Match(models.Model):
-    matchID = models.AutoField(primary_key=True)
+    #matchID = models.AutoField(primary_key=True)
     date = models.DateField()
-    gameName = models.CharField(choices=gameNameChoices, default=minecraft, max_length=25)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
+    gameName = models.CharField(default="minecraft", max_length=25)
+    team = models.ForeignKey('Team', on_delete=models.CASCADE, null=True)
     homeScore = models.IntegerField(null=True)
     opponentScore = models.IntegerField(null=True)
-    opponentID = models.ForeignKey(Opponent, on_delete=models.SET_NULL, null=True)
+    opponent = models.ForeignKey('Opponent', on_delete=models.SET_NULL, null=True)
     status = models.CharField(choices=matchStautsChoices, default=upcomming, max_length=10)
+
+    def get_absolute_url(self):
+        return reverse('match-detail', args=[str(self.id)])
+
+    def __str__(self):
+        return self.id
 

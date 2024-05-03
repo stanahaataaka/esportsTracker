@@ -14,9 +14,12 @@ def index(request):
     #IOU needed homepage info
     return render(request, "index.html")
 
-@login_required
-class GameListView(generic.ListView):
-    model = Game
+class MatchListView(generic.ListView):
+    model = Match
+    paginate_by = 10
+
+class MatchDetailView(generic.DetailView):
+    model = Match
 
 class TeamListView(generic.ListView):
     model = Team
@@ -24,20 +27,6 @@ class TeamListView(generic.ListView):
 
 class TeamDetailView(generic.DetailView):
     model = Team
-
-class PlayerListView(generic.ListView):
-    model = Player
-    paginate_by = 10
-
-class MatchDetailView(generic.DetailView):
-    model = Match
-
-class MatchListView(generic.ListView):
-    model = Match
-    paginate_by = 10
-
-class PlayerDetailView(generic.DetailView):
-    model = Player
 
 class TeamCreate(PermissionRequiredMixin, CreateView):
     model = Team
@@ -63,6 +52,13 @@ class TeamDelete(PermissionRequiredMixin, DeleteView):
                 reverse("team-delete", kwargs={"pk": self.object.pk})
             )
 
+class PlayerListView(generic.ListView):
+    model = Player
+    paginate_by = 10
+
+class PlayerDetailView(generic.DetailView):
+    model = Player
+
 class PlayerCreate(PermissionRequiredMixin, CreateView):
     model = Player
     fields = ['username', 'name', 'team', 'age']
@@ -87,6 +83,10 @@ class PlayerDelete(PermissionRequiredMixin, DeleteView):
                 reverse("player-delete", kwargs={"pk": self.object.pk})
             )
 
+@login_required
+class GameListView(generic.ListView):
+    model = Game
+
 class GameListView(generic.ListView):
     model = Game
 
@@ -104,6 +104,7 @@ class GameUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'tracker.change_game'
 
 class GameDelete(PermissionRequiredMixin, DeleteView):
+    
     model = Game
     success_url = reverse_lazy('admin_tracker')
     permission_required = 'tracker.delete_game'
