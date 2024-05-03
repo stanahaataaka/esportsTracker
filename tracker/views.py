@@ -14,8 +14,8 @@ def index(request):
     return render(request, "index.html")
 
 @login_required
-def admin_tracker(request):
-    return render(request, "admin_tracker.html")
+class GameListView(generic.ListView):
+    model = Game
 
 class TeamListView(generic.ListView):
     model = Team
@@ -57,7 +57,7 @@ class TeamDelete(PermissionRequiredMixin, DeleteView):
 
 class PlayerCreate(PermissionRequiredMixin, CreateView):
     model = Player
-    fields = ['username', 'name', 'team', 'age', 'kills', 'deaths', 'assists', 'KDA', 'datePlayed']
+    fields = ['username', 'name', 'team', 'age']
     permission_required = 'tracker.add_player'
 
 class PlayerUpdate(PermissionRequiredMixin, UpdateView):
@@ -77,4 +77,34 @@ class PlayerDelete(PermissionRequiredMixin, DeleteView):
         except Exception as e:
             return HttpResponseRedirect(
                 reverse("player-delete", kwargs={"pk": self.object.pk})
+            )
+
+class GameListView(generic.ListView):
+    model = Game
+
+class GameDetailView(generic.DetailView):
+    model = Game
+
+class GameCreate(PermissionRequiredMixin, CreateView):
+    model = Game
+    fields = '__all__'
+    permission_required = 'tracker.add_game'
+
+class GameUpdate(PermissionRequiredMixin, UpdateView):
+    model = Game
+    fields = '__all__'
+    permission_required = 'tracker.change_game'
+
+class GameDelete(PermissionRequiredMixin, DeleteView):
+    model = Game
+    success_url = reverse_lazy('admin_tracker')
+    permission_required = 'tracker.delete_game'
+
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("game-delete", kwargs={"pk": self.object.pk})
             )

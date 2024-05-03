@@ -1,17 +1,13 @@
 {% extends "base_generic.html" %}
 {% load static %}
 {% block content %}
-  <h1 style="margin-left: 35;">eSports Tracker Player List
-    {% if user.is_authenticated %}
-    <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'player-create' %}">Create Player</a>
-    {% endif %}
-  </h1>
+  <h1 style="margin-left: 35;">eSports Tracker Player List</h1>
   {% if player_list %}
     <ul>
       {% for player in player_list %}
         <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
           <div class="card-body">
-            <h5 style= "font-size: 35" class = "card-team-name"><a href="{{player.username}}">{{player.username}}</a></h5>
+            <h5 style= "font-size: 35" class = "card-team-name"><a href="{{player.get_absolute_url}}">{{player.username}}</a></h5>
           </div>
         </div>
       {% endfor %}

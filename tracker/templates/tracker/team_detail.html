@@ -3,8 +3,8 @@
 {% block content %}
   <h1 style="margin-left: 35;font-size: 50">{{team.teamName}} 
     {% if user.is_authenticated %}
-      <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'team-update' team.teamName %}">Update Team</a>
-      <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'team-delete' team.teamName %}">Delete Team</a>
+      <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'team-update' team.id %}">Update Team</a>
+      <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'team-delete' team.id %}">Delete Team</a>
     {% endif %}
   </h1>
     <h2 style="margin-left: 40;font-size: 25">Current Game: {{team.game.gameName}}</h2>
@@ -29,7 +29,7 @@
           <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
             <div class="card-body">
               {% for player in team.player_set.all %}
-              <p><a href="{{player.username}}">{{player.username}}</a></p>
+              <p><a href="{{player.get_absolute_url}}">{{player.username}}</a></p>
               {%empty%}
               <p>There are no players for this team!</p>
             {% endfor %}
