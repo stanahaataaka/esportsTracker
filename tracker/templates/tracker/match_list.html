@@ -5,6 +5,7 @@
   {% if match_list %}
     <ul>
       {% for match in match_list %}
+      {% if match.status == "Live" %}
         <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
           <div class="card-body">
             <h5 style= "font-size: 35" class = "card-team-name">
@@ -17,13 +18,14 @@
               {% else %}
               <img src="{% static 'images/logo.png' %}" alt="GameLogo" style="width:43.66px;height:58.44px; float:left;width:50px;height:50px;"></a>
               {% endif %}
-              <a href="/tracker/teams/{{ match.team.teamName }}">{{match.team.teamName}}</a>
-              <span> vs. {{match.opponentID.opponentAcronym}} </span>
-              <span style="float:right"><a href="{{ match.matchID }}">Score: {{match.homeScore}} - {{match.opponentScore}}</a></span>
+              <a href="{{ match.team.get_absolute_url }}">{{match.team.teamName}}</a>
+              <span> vs. {{match.opponent.opponentAcronym}} </span>
+              <span style="float:right"><a href="{{match.id}}">Score: {{match.homeScore}} - {{match.opponentScore}}</a></span>
             </h5>
             <p>Game: {{match.gameName}} <span style="float:right">{{match.date}}</span></p>
           </div>
         </div>
+        {%endif%}
       {% endfor %}
     </ul>
   {% else %}
