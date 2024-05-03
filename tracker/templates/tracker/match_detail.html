@@ -1,7 +1,12 @@
 {% extends "base_generic.html" %}
 {% load static %}
 {% block content %}
-  <h1 style="margin-left: 35;font-size: 50">Match</h1>
+  <h1 style="margin-left: 35;font-size: 50">Match
+    {% if user.is_authenticated %}
+      <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="">Update Match</a>
+      <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="">Delete Match</a>
+    {% endif %}
+  </h1>
     <h2 style="margin-left: 40;font-size: 25">{{match.team.teamName}} vs. {{match.opponentID.opponentName}}</h2>
     <h2 style="margin-left: 40;font-size: 25">Game: {{match.gameName}} | Date : {{match.date}} </h2>
     {% if match.status == "Live" %}

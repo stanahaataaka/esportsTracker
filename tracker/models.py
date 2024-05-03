@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 #Game Model: holds information for whaat games are avalible for any given season.
 #Variables for the leagueFormat, leagueStructure, and gameName: for more info reguarding this section, refer to section 2: https://www.mnvl.org/spring-rules .
@@ -56,16 +57,18 @@ class Game(models.Model):
     
 # Player Model:
 class Player(models.Model):
-    playerID = models.IntegerField(unique=True,primary_key=True,auto_created=True)
+    username = models.CharField(max_length=10, unique=True, primary_key=True)
+    name = models.CharField(max_length=20)
     team = models.ForeignKey('Team', on_delete=models.RESTRICT, null=True)
-    name = models.CharField("Username", max_length=20)
-    username = models.CharField("Username", max_length=10)
-    age = models.IntegerField("Age")
-    kills = models.IntegerField("Kills")
-    deaths = models.IntegerField("Deaths")
-    assists = models.IntegerField("Assists")
-    KDA = models.CharField('KDA', max_length=11)
-    datePlayed = models.DateField(("Date Played"), auto_now=False, auto_now_add=False)   
+    age = models.IntegerField()
+    kills = models.IntegerField()
+    deaths = models.IntegerField(null=True)
+    assists = models.IntegerField(null=True)
+    KDA = models.CharField(max_length=11,null=True)
+    datePlayed = models.DateField(("Date Played"), auto_now=False, auto_now_add=False,null=True)   
+
+    def get_absolute_url(self):
+        return reverse('player-detail', args=[str(self.username)])
 
     #ToString:
     def __str__(self):
@@ -75,6 +78,9 @@ class Player(models.Model):
 class Team(models.Model):
     teamName = models.CharField(max_length=25, unique=True, primary_key=True)
     game = models.ForeignKey('Game', on_delete=models.RESTRICT, null=True)
+
+    def get_absolute_url(self):
+        return reverse('team-detail', args=[str(self.teamName)])
 
     #ToString:
     def __str__(self):

@@ -1,10 +1,10 @@
 {% extends "base_generic.html" %}
 {% load static %}
 {% block content %}
-  <h1 style="margin-left: 35;font-size: 50">{{team.teamName}} 
+  <h1 style="margin-left: 35;font-size: 50">{{player.username}} 
     {% if user.is_authenticated %}
-      <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'team-update' team.teamName %}">Update Team</a>
-      <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'team-delete' team.teamName %}">Delete Team</a>
+      <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'player-update' player.username %}">Update Player</a>
+      <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'player-delete' player.username %}">Delete Player</a>
     {% endif %}
   </h1>
     <h2 style="margin-left: 40;font-size: 25">Current Game: {{team.game.gameName}}</h2>

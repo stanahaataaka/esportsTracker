@@ -21,6 +21,14 @@
           Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
           sans-serif;
       }
+      .link-button {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        position: relative;
+        top: 7px;
+      }
     </style>
   </head>
   <body>
@@ -74,7 +82,7 @@
               action="{% url 'admin:logout' %}"
             >
               {% csrf_token %}
-              <button type="submit" class="btn btn-link">
+              <button type="submit" class="link-button">
                 Logout<span class="sr-only">(current)</span>
               </button>
             </form>
