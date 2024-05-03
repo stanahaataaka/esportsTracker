@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 {% load static %}
 {% block content %}
+<div class="card">
 <h1 style="margin-left: 35;font-size: 50">Game Name: {{game.gameName}} 
   {% if user.is_authenticated %}
     <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'game-update' game.id %}">Update Game</a>
@@ -10,4 +11,5 @@
 <h1 style="margin-left: 35;font-size: 40">Team Size: {{game.teamSize}}</h1>
 <h1 style="margin-left: 35;font-size: 40">League Format: {{game.leagueFormat}}</h1>
 <h1 style="margin-left: 35;font-size: 40">League Structure: {{game.leagueStructure}}</h1>
+</div>
 {% endblock %}

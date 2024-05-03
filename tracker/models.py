@@ -51,10 +51,10 @@ class Player(models.Model):
     name = models.CharField(max_length=20)
     team = models.ForeignKey('Team', on_delete=models.RESTRICT, null=True)
     age = models.IntegerField()
-    #kills = models.IntegerField()
-    #deaths = models.IntegerField(null=True)
-    #assists = models.IntegerField(null=True)
-    #KDA = models.CharField(max_length=11,null=True)
+    kills = models.IntegerField(default=0)
+    deaths = models.IntegerField(null=True, default=0)
+    assists = models.IntegerField(null=True, default=0)
+    KDA = models.CharField(max_length=11,null=True, default="0/0/0")
     #datePlayed = models.DateField(("Date Played"), auto_now=False, auto_now_add=False,null=True)   
 
     def get_absolute_url(self):
@@ -75,55 +75,30 @@ class Team(models.Model):
     #ToString:
     def __str__(self):
         return self.teamName
-    
-#Match Models
-class Opponent(models.Model):
-    #opponentID = models.AutoField(primary_key=True)
-    opponentName = models.CharField(max_length=40)
-    opponentAcronym = models.CharField(max_length=5)
-
-    def get_absolute_url(self):
-        return reverse('match-detail', args=[str(self.id)])
-
-    def __str__(self):
-        return self.opponentName
 
 #Game Name:
 #Variables:
-live = "Live"
-final = "Final"
-upcomming = "Upcomming"
+completed = "Completed"
+upcoming = "Upcoming"
 #Choice Variable:
 matchStautsChoices = (
-    (live, "Live"),
-    (final, "Final"),
-    (upcomming, "Upcomming"),
+    (completed, "Completed"),
+    (upcoming, "Upcoming"),
 )
 class Match(models.Model):
     #matchID = models.AutoField(primary_key=True)
     date = models.DateField()
-    gameName = models.CharField(default="minecraft", max_length=25)
-    team = models.ForeignKey('Team', on_delete=models.CASCADE, null=True)
+    team = models.ForeignKey('Team', on_delete=models.RESTRICT, null=True)
+    players = models.ManyToManyField("Player")
     homeScore = models.IntegerField(null=True)
     opponentScore = models.IntegerField(null=True)
-    opponent = models.ForeignKey('Opponent', on_delete=models.SET_NULL, null=True)
-    status = models.CharField(choices=matchStautsChoices, default=upcomming, max_length=10)
+    opponentAcronym = models.CharField(max_length=5,default="null")
+    status = models.CharField(choices=matchStautsChoices, default=completed, max_length=10)
 
     def get_absolute_url(self):
         return reverse('match-detail', args=[str(self.id)])
 
     def __str__(self):
-        return self.id
-
-class GamePlayerAssociate(models.Model):
-    playerID = models.ForeignKey('Player',on_delete=models.RESTRICT)
-    gameID = models.ForeignKey('Game',on_delete=models.RESTRICT)
+        return self.opponentAcronym
     
-    def listOfGames(playerID):
-        tempList = []
-        for game in gameID:
-            if(game.playerID == playerID):
-                tempList.append(game)
-        
-        return tempList
         

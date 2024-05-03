@@ -1,7 +1,7 @@
 
 from django.shortcuts import render
 from django.views import generic
-from .models import Team, Game, Player, GamePlayerAssociate, Match
+from .models import Team, Game, Player, Match
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
@@ -20,6 +20,30 @@ class MatchListView(generic.ListView):
 
 class MatchDetailView(generic.DetailView):
     model = Match
+
+class MatchCreate(PermissionRequiredMixin, CreateView):
+    model = Match
+    fields = '__all__'
+    permission_required = 'tracker.add_match'
+
+class MatchUpdate(PermissionRequiredMixin, UpdateView):
+    model = Match
+    fields = '__all__'
+    permission_required = 'tracker.change_match'
+
+class MatchDelete(PermissionRequiredMixin, DeleteView):
+    model = Match
+    success_url = reverse_lazy('matches')
+    permission_required = 'tracker.delete_match'
+
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("match-delete", kwargs={"pk": self.object.pk})
+            )
 
 class TeamListView(generic.ListView):
     model = Team

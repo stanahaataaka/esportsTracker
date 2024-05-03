@@ -6,21 +6,4 @@
     <p style="text-align: center; font-size: 30px;">Go Magic!</p>
   </div>
 </div>
-<div class="card">
-  <div class="card-body">
-    <h3 class="card-title">Current Live Matches</h3>
-    {% if live_match_list %} {% comment %} {% for match in live_match_list %}
-    Implement for Loop to display current live matches
-    <a href="#" class="card-link">Live Match!</a>
-    {% endfor %} {% endcomment %} {% else %}
-    <p class="card-text">There are no live matches at this time</p>
-    {% endif %}
-  </div>
-</div>
-<div class="card">
-  <div class="card-body">
-    <h3>Most Recent Match</h3>
-    {% comment %} Insert view of last match. Delete if desired {% endcomment %}
-  </div>
-</div>
 {% endblock %}

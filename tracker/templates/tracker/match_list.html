@@ -21,9 +21,9 @@
             {% else %}
             <img src="{% static 'images/logo.png' %}" alt="GameLogo" style="width:43.66px;height:58.44px; float:left;width:50px;height:50px;"></a>
             {% endif %}
-            <a href="/tracker/teams/{{ match.team.teamName }}">{{match.team.teamName}}</a>
-            <span> vs. {{match.opponentID.opponentAcronym}} </span>
-            <span style="float:right"><a href="{{ match.matchID }}">Score: {{match.homeScore}} - {{match.opponentScore}}</a></span>
+            <a href="{{ match.team.get_absolute_url }}">{{match.team.teamName}}</a>
+            <span> vs. {{match.opponentAcronym}} </span>
+            <span style="float:right"><a href="{{ match.get_absolute_url }}">Score: {{match.homeScore}} - {{match.opponentScore}}</a></span>
           </h5>
           <p>Game: {{match.gameName}} <span style="float:right">{{match.date}}</span></p>
         </div>
