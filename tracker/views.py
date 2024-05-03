@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import Team, Game, Player
+<<<<<<< HEAD
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.urls import reverse
+=======
+from django.contrib.auth.decorators import login_required
+>>>>>>> 7b92129f49bb8b00167465e96cc9e1c00ef79506
 
 def index(request):
     #IOU needed homepage info
@@ -19,12 +23,17 @@ class TeamListView(generic.ListView):
 class TeamDetailView(generic.DetailView):
     model = Team
 
+<<<<<<< HEAD
+=======
+@login_required
+>>>>>>> 7b92129f49bb8b00167465e96cc9e1c00ef79506
 def admin_tracker(request):
     return render(request, "admin_tracker.html")
 
 class PlayerListView(generic.ListView):
     model = Player
     paginate_by = 10
+<<<<<<< HEAD
 
 class TeamCreate(PermissionRequiredMixin, CreateView):
     model = Team
@@ -50,3 +59,5 @@ class TeamDelete(PermissionRequiredMixin, DeleteView):
             return HttpResponseRedirect(
                 reverse("team-delete", kwargs={"pk": self.object.pk})
             )
+=======
+>>>>>>> 7b92129f49bb8b00167465e96cc9e1c00ef79506
