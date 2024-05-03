@@ -6,10 +6,10 @@ urlpatterns = [
     path('', views.index, name='index'),
     path("admin_tracker/", views.GameListView.as_view(), name="admin_tracker"),
     path("matches/", views.MatchListView.as_view(), name="matches"),
+    path('matches/<int:pk>', views.MatchDetailView.as_view(), name='match-detail'),
     path('teams/', views.TeamListView.as_view(), name='teams'),
     path('teams/<int:pk>', views.TeamDetailView.as_view(), name='team-detail'),
     path('players/', views.PlayerListView.as_view(), name='players'),
-    path('players/<str:pk>', views.PlayerDetailView.as_view(), name='players'),
     path('players/<int:pk>', views.PlayerDetailView.as_view(), name='player-detail'),
     path('games/<int:pk>', views.GameDetailView.as_view(), name='game-detail'),
 ]
@@ -32,8 +32,8 @@ urlpatterns += [
     path('games/<int:pk>/delete/', views.GameDelete.as_view(), name='game-delete'),
 ]
 
-#urlpatterns += [
-#    path('matches/create/', views.MatchCreate.as_view(), name='match-create'),
-#    path('matches/<str:pk>/update/', views.MatchUpdate.as_view(), name='match-update'),
-#    path('matches/<str:pk>/delete/', views.MatchDelete.as_view(), name='match-delete'),
-#]
+urlpatterns += [
+    path('matches/create/', views.MatchCreate.as_view(), name='match-create'),
+    path('matches/<int:pk>/update/', views.MatchUpdate.as_view(), name='match-update'),
+    path('matches/<int:pk>/delete/', views.MatchDelete.as_view(), name='match-delete'),
+]

@@ -1,68 +1,16 @@
+
 {% extends "base_generic.html" %}
 {% load static %}
 {% block content %}
-  <div class="card">
-    <h1 style="margin-left: 35;font-size: 50">{{player.username}} 
-      {% if user.is_authenticated %}
-        <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'player-update' player.id %}">Update Player</a>
-        <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'player-delete' player.id %}">Delete Player</a>
-      {% endif %}
-    </h1>
-    <h2 style="margin-left: 40;font-size: 25">Current Game: {{team.game.gameName}}</h2>
-    <h3 style="font-size: 20; text-align: center;">Current Season Score:</h3>
-    <div style="text-align: center;">
-      <div style="display: inline-block;text-align: center;font-size: 20;margin-right:8px;">Wins:
-        <br>
-        <p style="display: inline-block;border: 1px solid black;text-align: center;padding: 1rem 1rem;">1</p>
-        </br>
-      </div>
-      <div style="display: inline-block;text-align: center;">
-        <p style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 50;">-</p>
-      </div>
-      <div style="display: inline-block;text-align: center;font-size: 20;">Losses:
-        <br>
-        <p style="display: inline-block;border: 1px solid black;text-align: center;padding: 1rem 1rem;">1</p>
-        </br>
-      </div>
-    </div>
-    <div class="card-player-list">
-      <strong style="margin-left: 40;font-size: 25">Player List: </strong> 
-      <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
-        <div class="card-body">
-          {% for player in team.player_set.all %}
-          <p><a href="{{player.username}}">{{player.username}}</a></p>
-          {%empty%}
-          <p>There are no players for this team!</p>
-        {% endfor %}
-        </div>
-      </div>
-    </div>
-    <div class="card-match-list">
-      <strong style="margin-left: 40;font-size: 25">Match History: </strong> 
-      <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
-        <div class="card-body">
-            {% if player_list %}
-              <ul>
-                {% for player in player_list %}
-                  <p href="{{ team.player.name }}">{{team.player.name}}</p>
-                  <hr>
-                {% endfor %}
-              </ul>
-            {% else %}
-              <p>There are no players for this school because mitchell needs to finish programing this part!.</p>
-            {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock %}
-{% extends "base_generic.html" %}
-{% load static %}
-{% block content %}
-  <h1 style="margin-left: 35;font-size: 50">{{player.username | upper}}</h1>
+<div class="card">
+  <h1 style="margin-left: 35;font-size: 50">{{player.username | upper}}
+  {% if user.is_authenticated %}
+    <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'player-update' player.id %}">Update Player</a>
+    <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="{% url 'player-delete' player.id %}">Delete Player</a>
+  {% endif %}
+</h1>
   <h3 style="margin-left: 35;font-size: 50">Age: {{player.age}}</h3>
-    <h2 style="margin-left: 40;font-size: 25">Current Game {{player.datePlayed}}: </h2>
-      <h3 style="font-size: 20; text-align: center;">Current Season Wins and Losses:</h3>
+      <h3 style="font-size: 20; text-align: center;">Current Season:</h3>
       <div style="text-align: center;">
         <div style="display: inline-block;text-align: center;font-size: 20;margin-right:8px;">Kills:
           <br>
@@ -79,20 +27,20 @@
         </div>
       </div>
         <div class="card-player-list">
-          <strong style="margin-left: 40;font-size: 25">Team: {{player.team}} </strong> 
+          <strong style="margin-left: 40;font-size: 25" >Team: {{player.team}}</a></strong> 
           </div>
         </div>
-        
+        <div class="card">
         <div class="card-match-list">
           <strong style="margin-left: 40;font-size: 20">Match History: </strong> 
             <div class="card-body">
               <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
                 <h6 style= "font-size: 20" class = "card-player-gameName">{{player.team.game.gameName | upper}}</h6>
-                <h8 style= "font-size: 14" class = "card-player-gameID">Game ID: {{player.team.game.gameID}}</h8>
                 <h8 style= "font-size: 14" class = "card-player-format">{{player.team.game.leagueFormat}}</h8>
                 <h8 style= "font-size: 14" class = "card-player-structure">{{player.team.game.leagueStructure}}</h8>
               </div>
             </div>
         </div>
-        
+      </div>
+    </div>
 {% endblock %}

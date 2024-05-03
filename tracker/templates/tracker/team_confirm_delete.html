@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-
+<div class="card">
 <h1>Delete Team: {{ team }}</h1>
 <p>Are you sure you want to delete the team?</p>
 
@@ -9,4 +9,5 @@
   {% csrf_token %}
   <input type="submit" action="" value="Yes, delete.">
 </form>
+</div>
 {% endblock %}
