@@ -1,0 +1,55 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+<div class="card">
+  <div class="card">
+    <h1 style="margin-left: 35;font-size: 50">Match
+      {% if user.is_authenticated %}
+        <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="">Update Match</a>
+        <a style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 25;" href="">Delete Match</a>
+      {% endif %}
+    </h1>
+    <h2 style="margin-left: 40;font-size: 25">{{match.team.teamName}} vs. {{match.opponentID.opponentName}}</h2>
+    <h2 style="margin-left: 40;font-size: 25">Game: {{match.gameName}} | Date : {{match.date}} </h2>
+    {% if match.status == "Live" %}
+      <h2 style="margin-left: 40;font-size: 25">Live</h2>
+    {%elif match.status == "Final" %}
+      <h2 style="margin-left: 40;font-size: 25">Final</h2>
+    {%else%}
+      <h2 style="margin-left: 40;font-size: 25">Upcomming</h2>
+    {%endif%}
+    <h3 style="font-size: 20; text-align: center;">Score</h3>
+    <div style="text-align: center;">
+      <div style="display: inline-block;text-align: center;font-size: 20;margin-right:8px;">Home:
+        <br>
+        <p style="display: inline-block;border: 1px solid black;text-align: center;padding: 1rem 1rem;">{{match.homeScore}}</p>
+        </br>
+      </div>
+      <div style="display: inline-block;text-align: center;">
+        <p style="display: inline-block;text-align: center;padding: 1rem 1rem;font-size: 50;">-</p>
+      </div>
+      <div style="display: inline-block;text-align: center;font-size: 20;">{{match.opponentID.opponentAcronym}}:
+        <br>
+        <p style="display: inline-block;border: 1px solid black;text-align: center;padding: 1rem 1rem;">{{match.opponentScore}}</p>
+        </br>
+      </div>
+    </div>
+    <div class="card-player-list">
+      <strong style="margin-left: 40;font-size: 25">Individual Stats: </strong> 
+      {% for player in match.team.player_set.all %}
+        <div style="margin: auto; max-width: 800px;" class="card w-75 mb-3">
+          <div class="card-body">
+              <p>
+                <a href="{{player.username}}">{{player.username}}</a>
+                <span>Kills: {{player.kills}} Deaths: {{player.deaths}}</span>
+              </p>
+          </div>
+        </div>
+      {%empty%}
+        <p>There are no players for this team! :|</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+

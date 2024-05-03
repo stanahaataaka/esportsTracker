@@ -1,19 +1,8 @@
 from django.db import models
+from django.urls import reverse
 
 #Game Model: holds information for whaat games are avalible for any given season.
-#Variables for the leagueFormat, leagueStructure, and gameName: for more info reguarding this section, refer to section 2: https://www.mnvl.org/spring-rules .
-
-#Game Name:
-#Variables:
-rocketLeague = "Rocket League"
-minecraft = "Minecraft"
-valorant = "Valorant"
-#Choice Variable:
-gameNameChoices = (
-    (rocketLeague, "Rocket League"),
-    (minecraft, "Minecraft"),
-    (valorant, "Valorant"),
-)
+#Variables for the leagueFormat and leagueStructure: for more info reguarding this section, refer to section 2: https://www.mnvl.org/spring-rules .
 
 #League Format:
 #Variables:
@@ -42,13 +31,15 @@ leagueStructureChoices = (
 )
 #Game Model:
 class Game(models.Model):
-    gameID = models.IntegerField(unique=True,primary_key=True,auto_created=True)
-    gameName = models.CharField(choices=gameNameChoices, default=minecraft, max_length=25)
+    gameName = models.CharField(max_length=30)
     #The team size feild holds the number of players allowed on 1 team for the defined game.
     teamSize = models.IntegerField(default=0)
     #The leagueFormat and leagueStructure feilds pull from the choices defined in the leagueFormatChoices and leagueStructureChoices variables.
     leagueFormat = models.CharField(choices=leagueFormatChoices, default=roundRobin, max_length=25)
     leagueStructure = models.CharField(choices=leagueStructureChoices, default=jv, max_length=25)
+
+    def get_absolute_url(self):
+        return reverse('game-detail', args=[str(self.id)])
 
     #ToString:
     def __str__(self):
@@ -56,16 +47,18 @@ class Game(models.Model):
     
 # Player Model:
 class Player(models.Model):
-    playerID = models.IntegerField(unique=True,primary_key=True,auto_created=True)
+    username = models.CharField(max_length=10)
+    name = models.CharField(max_length=20)
     team = models.ForeignKey('Team', on_delete=models.RESTRICT, null=True)
-    name = models.CharField("Username", max_length=20)
-    username = models.CharField("Username", max_length=10)
-    age = models.IntegerField("Age")
-    kills = models.IntegerField("Kills")
-    deaths = models.IntegerField("Deaths")
-    assists = models.IntegerField("Assists")
-    KDA = models.CharField('KDA', max_length=11)
-    datePlayed = models.DateField(("Date Played"), auto_now=False, auto_now_add=False)   
+    age = models.IntegerField()
+    #kills = models.IntegerField()
+    #deaths = models.IntegerField(null=True)
+    #assists = models.IntegerField(null=True)
+    #KDA = models.CharField(max_length=11,null=True)
+    #datePlayed = models.DateField(("Date Played"), auto_now=False, auto_now_add=False,null=True)   
+
+    def get_absolute_url(self):
+        return reverse('player-detail', args=[str(self.id)])
 
     #ToString:
     def __str__(self):
@@ -73,13 +66,55 @@ class Player(models.Model):
     
 #Team Model:
 class Team(models.Model):
-    teamName = models.CharField(max_length=25, unique=True, primary_key=True)
-    game = models.ForeignKey('Game', on_delete=models.RESTRICT, null=True)
+    teamName = models.CharField(max_length=25, unique=True)
+    game = models.ForeignKey('Game', on_delete=models.SET_NULL, null=True)
+
+    def get_absolute_url(self):
+        return reverse('team-detail', args=[str(self.id)])
 
     #ToString:
     def __str__(self):
         return self.teamName
     
+#Match Models
+class Opponent(models.Model):
+    #opponentID = models.AutoField(primary_key=True)
+    opponentName = models.CharField(max_length=40)
+    opponentAcronym = models.CharField(max_length=5)
+
+    def get_absolute_url(self):
+        return reverse('match-detail', args=[str(self.id)])
+
+    def __str__(self):
+        return self.opponentName
+
+#Game Name:
+#Variables:
+live = "Live"
+final = "Final"
+upcomming = "Upcomming"
+#Choice Variable:
+matchStautsChoices = (
+    (live, "Live"),
+    (final, "Final"),
+    (upcomming, "Upcomming"),
+)
+class Match(models.Model):
+    #matchID = models.AutoField(primary_key=True)
+    date = models.DateField()
+    gameName = models.CharField(default="minecraft", max_length=25)
+    team = models.ForeignKey('Team', on_delete=models.CASCADE, null=True)
+    homeScore = models.IntegerField(null=True)
+    opponentScore = models.IntegerField(null=True)
+    opponent = models.ForeignKey('Opponent', on_delete=models.SET_NULL, null=True)
+    status = models.CharField(choices=matchStautsChoices, default=upcomming, max_length=10)
+
+    def get_absolute_url(self):
+        return reverse('match-detail', args=[str(self.id)])
+
+    def __str__(self):
+        return self.id
+
 class GamePlayerAssociate(models.Model):
     playerID = models.ForeignKey('Player',on_delete=models.RESTRICT)
     gameID = models.ForeignKey('Game',on_delete=models.RESTRICT)
